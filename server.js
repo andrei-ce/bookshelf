@@ -1,12 +1,15 @@
 const express = require('express');
-
+const cors = require('cors');
+const connectDb = require('./utils/dbConnection');
 // init express app
 const app = express();
 
 // connect database
+connectDb();
 
 // init middlewares
 app.use(express.json({ extended: false }));
+app.use(cors()); // allow cross-origin communication (back & front end)
 
 // define routes
 

@@ -12,8 +12,8 @@ In the project root directory, you can run:
 
 ### `npm start`
 
-Starts the **backend server on port 5000**.<br /> If you want to test the endpoints
-please use the url `http://localhost:5000`. For example:
+Starts the **backend server on port 5000**. If you want to test the endpoints please
+use the url `http://localhost:5000`. For example:
 
 - **GET /books/** - Returns a list of books in the database in JSON format
 - **GET /book/{{id}}/** - Returns a detail view of the specified book id. Nest author
@@ -35,10 +35,8 @@ every change saved to files.<br />
 
 Starts the **frontend server on port 3000**. Open the url
 [http://localhost:3000](http://localhost:3000) in your browser to start using the app's
-UI.
-
-The page will reload if you make edits.<br /> You will also see any lint errors in the
-console.
+UI. The page will reload if you make edits.<br /> You will also see any lint errors in
+the console.
 
 ### `npm run dev`
 
