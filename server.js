@@ -14,8 +14,8 @@ app.use(express.json({ extended: false }));
 app.use(cors()); // allow cross-origin communication (back & front end)
 
 // define routes
-app.use('/authors', require('./routes/author'));
-// app.use('/books', require('./routes/book'));
+app.use('/authors', require('./routes/authors'));
+app.use('/books', require('./routes/books'));
 
 // server listen
 const PORT = process.env.PORT || 5000;

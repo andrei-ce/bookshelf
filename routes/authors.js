@@ -1,10 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const authorController = require('../controllers/author');
-const {
-  getAuthorByIdValidator,
-  postAuthorValidator,
-} = require('../middleware/validators');
+const authorController = require('../controllers/authors');
+const { authorIdValidator, postAuthorValidator } = require('../middleware/validators');
 
 // @route GET /authors
 // @desc gets a list of all authors
@@ -12,7 +9,7 @@ router.get('/', authorController.getAuthors);
 
 // @route GET /authors/:authorId
 // @desc gets 1 author by ID
-router.get('/:authorId', getAuthorByIdValidator, authorController.getAuthorById);
+router.get('/:authorId', authorIdValidator, authorController.getAuthorById);
 
 // @route POST /authors
 // @desc post a new author
@@ -22,7 +19,7 @@ router.post('/', postAuthorValidator, authorController.postAuthor);
 // @desc edit 1 author by ID
 router.put(
   '/:authorId',
-  [getAuthorByIdValidator, postAuthorValidator],
+  [authorIdValidator, postAuthorValidator],
   authorController.editAuthorById
 );
 
