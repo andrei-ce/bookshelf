@@ -1,6 +1,8 @@
+// imports
 const express = require('express');
 const cors = require('cors');
 const connectDb = require('./utils/dbConnection');
+
 // init express app
 const app = express();
 
@@ -12,6 +14,8 @@ app.use(express.json({ extended: false }));
 app.use(cors()); // allow cross-origin communication (back & front end)
 
 // define routes
+app.use('/authors', require('./routes/author'));
+// app.use('/books', require('./routes/book'));
 
 // server listen
 const PORT = process.env.PORT || 5000;

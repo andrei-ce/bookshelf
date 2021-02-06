@@ -9,13 +9,11 @@ const authorSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  // or?
-  // get: () => {return `${this.name.first} ${this.name.first}`}
 });
 
 // Virtuals: getter function
 authorSchema.virtual('fullName').get(function () {
-  return `${this.name.first} ${this.name.first}`;
+  return `${this.firstName} ${this.lastName}`;
 });
 
 module.exports = mongoose.model('Author', authorSchema);
