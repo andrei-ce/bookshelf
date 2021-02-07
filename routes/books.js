@@ -15,12 +15,12 @@ router.get('/:bookId', bookIdValidator, bookController.getBookById);
 // @desc post a new author
 router.post('/', postBookValidator, bookController.postBook);
 
-// // @route PUT /authors
-// // @desc edit 1 author by ID
-// router.put(
-//   '/:bookId',
-//   [bookIdValidator, postBookValidator],
-//   bookController.editAuthorById
-// );
+// @route PUT /authors
+// @desc edit 1 author by ID
+router.put(
+  '/:bookId',
+  [bookIdValidator, postBookValidator],
+  bookController.editBookById
+);
 
 module.exports = router;
