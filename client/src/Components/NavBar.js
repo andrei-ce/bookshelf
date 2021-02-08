@@ -19,7 +19,10 @@ const Navbar = () => {
       fontSize={['sm', 'md', 'lg', 'xl']}
       h='10vh'
       boxShadow='dark-lg'
-      p={2}>
+      p={2}
+      position='fixed'
+      top='0'
+      right='0'>
       <Flex w={['90vw', '90vw', '80vw', '80vw']} align='center' justify='space-around'>
         {/* LOGO */}
         <Box>
@@ -43,14 +46,14 @@ const Navbar = () => {
             <Link to='/'>Home</Link>
           </Box>
           <Box position='relative'>
-            <Link to='#'>Authors</Link>
+            <Link to='/authors'>Authors</Link>
           </Box>
           <Box position='relative'>
             <Link to='#'>Books</Link>
           </Box>
         </Stack>
         {/* LIGHT/DARK THEME */}
-        <Flex justify='center' align='center'>
+        <Flex justify='center' align='center' w={['10vh', '10vh', '12vh', '14vh']}>
           <IconButton
             aria-label='Switch between light and dark mode'
             rounded='full'
