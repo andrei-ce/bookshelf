@@ -17,8 +17,8 @@ const Navbar = () => {
       align='center'
       justify='space-around'
       fontSize={['sm', 'md', 'lg', 'xl']}
-      h='9vh'
-      boxShadow='md'
+      h='10vh'
+      boxShadow='dark-lg'
       p={2}>
       <Flex w={['90vw', '90vw', '80vw', '80vw']} align='center' justify='space-around'>
         {/* LOGO */}
