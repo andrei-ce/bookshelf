@@ -3,8 +3,9 @@ import { ChakraProvider, theme as defaultTheme, CSSReset } from '@chakra-ui/reac
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import NavBar from './Components/NavBar';
-import LandingPage from './Pages/Landing';
-import AuthorsPage from './Pages/Authors';
+import LandingPage from './Pages/LandingPage';
+import AuthorsPage from './Pages/AuthorsPage';
+import BooksPage from './Pages/BooksPage';
 
 const theme = {
   ...defaultTheme,
@@ -29,6 +30,7 @@ function App() {
         <Switch>
           <Route exact path='/' component={LandingPage} />
           <Route exact path='/authors' component={AuthorsPage} />
+          <Route exact path='/books' component={BooksPage} />
         </Switch>
       </BrowserRouter>
     </ChakraProvider>

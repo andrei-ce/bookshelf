@@ -7,6 +7,7 @@ const axiosCall = {
   get: async function (url) {
     const config = { headers: contentJSON };
     let answer = await axios.get(baseUrl + url, config);
+    // console.log(answer);
     // console.log(answer.data);
     return answer;
   },

@@ -1,5 +1,4 @@
 const Book = require('../models/Book');
-const { validationResult } = require('express-validator');
 
 // GET BOOKS
 // =========================

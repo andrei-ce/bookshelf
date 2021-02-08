@@ -12,6 +12,7 @@ const Background = ({ children }) => {
     <Flex
       align='center'
       justify='center'
+      direction='column'
       flex='1'
       minHeight='90vh'
       marginTop='10vh'
