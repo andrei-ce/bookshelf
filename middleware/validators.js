@@ -47,7 +47,7 @@ exports.postBookValidator = [
   check('title', 'Please include a title of min 3 characters')
     .trim()
     .isLength({ min: 3 }),
-  check('cover', 'Please enter a valid url').trim().isURL(),
+  check('cover', 'Please enter a valid url').optional().trim().isURL(),
   check('description', 'Please enter a description of at least 10 characters')
     .trim()
     .isLength({ min: 10, max: 300 }),
