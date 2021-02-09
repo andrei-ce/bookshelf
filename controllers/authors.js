@@ -23,7 +23,6 @@ exports.getAuthorById = async (req, res, next) => {
         .status(400)
         .json({ errors: [{ msg: 'No author found under this id' }] });
     }
-
     res.json(author);
   } catch (error) {
     console.log(error);
@@ -34,12 +33,15 @@ exports.getAuthorById = async (req, res, next) => {
 // =========================
 exports.postAuthor = async (req, res, next) => {
   try {
-    const authorExists = await Author.find({ firstName, lastName });
+    const { firstName, lastName } = req.body;
+    const authorExists = await Author.findOne({
+      firstName: firstName,
+      lastName: lastName,
+    });
     if (authorExists) {
       return res.status(400).json({ errors: [{ msg: 'This author already exists' }] });
     }
 
-    const { firstName, lastName } = req.body;
     const author = new Author({ firstName, lastName });
     const newAuthor = await author.save();
     res.status(201).json(newAuthor);
