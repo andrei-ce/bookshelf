@@ -7,9 +7,12 @@ import logo from '../Assets/logo.png';
 import logoDarkMode from '../Assets/logo-darkmode.png';
 
 const Navbar = ({ location }) => {
-  const { colorMode, toggleColorMode } = useColorMode();
+  const { colorMode, toggleColorMode } = useColorMode('dark');
   const bgColor = { light: 'gray.300', dark: 'gray.600' };
   const textColor = { light: 'black', dark: 'gray.100' };
+  console.log(location.pathname);
+  console.log(location.pathname.startsWith('/books'));
+
   return (
     <Flex
       w='100vw'
@@ -49,14 +52,18 @@ const Navbar = ({ location }) => {
           </Box>
           <Box
             position='relative'
-            opacity={location.pathname !== '/authors' ? 0.4 : 1}
-            textDecoration={location.pathname === '/authors' ? 'underline' : null}>
+            opacity={location.pathname.startsWith('/authors') ? 1 : 0.4}
+            textDecoration={
+              location.pathname.startsWith('/authors') ? 'underline' : null
+            }>
             <Link to='/authors'>Authors</Link>
           </Box>
           <Box
             position='relative'
-            opacity={location.pathname !== '/books' ? 0.4 : 1}
-            textDecoration={location.pathname === '/books' ? 'underline' : null}>
+            opacity={location.pathname.startsWith('/books') ? 1 : 0.4}
+            textDecoration={
+              location.pathname.startsWith('/books') ? 'underline' : null
+            }>
             <Link to='/books'>Books</Link>
           </Box>
         </Stack>
