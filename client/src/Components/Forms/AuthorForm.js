@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   Input,
   Stack,
-  Box,
   Button,
   FormControl,
   Divider,
@@ -11,23 +10,32 @@ import {
 import PropTypes from 'prop-types';
 import { FaUserPlus, FaEdit } from 'react-icons/fa';
 
+import axiosCall from '../../Utils/axios';
+
 const AuthorForm = ({ mode }) => {
   const { colorMode } = useColorMode();
 
+  // form
   const initialValues = {
     firstName: '',
     lastName: '',
   };
 
+  //state
   const [formData, setFormData] = useState(initialValues);
+  const [loading, setLoading] = useState(false);
 
+  // functions
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     console.log(formData);
   };
 
-  const handleSubmit = (e) => {
-    console.log('submitted');
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    await axiosCall.post('/authors', formData);
+    setLoading(false);
   };
 
   return (
@@ -64,7 +72,10 @@ const AuthorForm = ({ mode }) => {
           />
         </FormControl>
         <Divider borderColor='teal.300' />
-        <Button type='submit' rightIcon={mode === 'add' ? <FaUserPlus /> : <FaEdit />}>
+        <Button
+          isLoading={loading}
+          type='submit'
+          rightIcon={mode === 'add' ? <FaUserPlus /> : <FaEdit />}>
           {mode === 'add' ? 'Add author ' : 'Finish edit '}
         </Button>
       </Stack>

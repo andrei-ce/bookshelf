@@ -26,15 +26,18 @@ import { delay } from '../Utils/utils';
 
 const AuthorsPage = () => {
   const { colorMode } = useColorMode();
-  const [authors, setAuthors] = useState([]);
 
+  // states
+  const [authors, setAuthors] = useState([]);
   const [searchText, setSearchText] = useState('');
   const [loading, setLoading] = useState(true);
 
+  // functions
   const searchAuthors = (e) => {
     setSearchText(e.target.value);
   };
 
+  // effects
   useEffect(async () => {
     // This setTimeout is only for UI purposes (to see the spinner)
     await delay(1000);

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import { Button } from '@chakra-ui/react';
+import { FaChevronLeft } from 'react-icons/fa';
 
 import Background from '../Components/Background';
 import AuthorForm from '../Components/Forms/AuthorForm';
@@ -16,6 +18,17 @@ const AuthorEditOrAddPage = ({ location, ...props }) => {
   return (
     <Background>
       <AuthorForm mode={mode} />
+      <Link to='/authors'>
+        <Button
+          boxShadow='dark-lg'
+          mt={4}
+          mb={5}
+          leftIcon={<FaChevronLeft />}
+          colorScheme='teal'
+          size='md'>
+          Back
+        </Button>
+      </Link>
     </Background>
   );
 };
