@@ -16,7 +16,7 @@ exports.getBooks = async (req, res, next) => {
 exports.getBookById = async (req, res, next) => {
   try {
     const { bookId } = req.params;
-    const book = await Book.findById(bookId);
+    const book = await Book.findById(bookId).populate('authors');
 
     if (!book) {
       return res
