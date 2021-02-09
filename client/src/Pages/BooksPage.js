@@ -32,7 +32,7 @@ const BooksPage = () => {
 
   useEffect(async () => {
     // This setTimeout is only for UI purposes (to see the spinner)
-    await delay(2000);
+    await delay(1000);
     let fetchedBooks = await axiosCall.get('/books');
     setBooks(fetchedBooks.data);
     setLoading(false);

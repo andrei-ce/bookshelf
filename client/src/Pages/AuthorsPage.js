@@ -17,7 +17,8 @@ import {
   CircularProgress as Spinner,
   useColorMode,
 } from '@chakra-ui/react';
-import { FaSearch } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import { FaSearch, FaEdit } from 'react-icons/fa';
 
 import Background from '../Components/Background';
 import axiosCall from '../Utils/axios';
@@ -36,7 +37,7 @@ const AuthorsPage = () => {
 
   useEffect(async () => {
     // This setTimeout is only for UI purposes (to see the spinner)
-    await delay(2000);
+    await delay(1000);
     let fetchedAuthors = await axiosCall.get('/authors');
     setAuthors(fetchedAuthors.data);
     setLoading(false);
@@ -45,7 +46,7 @@ const AuthorsPage = () => {
   return (
     <Background>
       <Flex
-        backgroundColor={colorMode === 'light' ? 'gray.200' : 'gray.900'}
+        backgroundColor={colorMode === 'light' ? 'gray.300' : 'gray.800'}
         borderRadius='md'
         p={1}
         mt={1}
@@ -60,17 +61,17 @@ const AuthorsPage = () => {
             type='text'
             onChange={(e) => searchAuthors(e)}
             placeholder='Search...'
+            _placeholder={{ color: colorMode === 'light' ? 'gray.600' : 'gray.300' }}
           />
         </InputGroup>
-        <Button
-          mr={1}
-          colorScheme='teal'
-          size='md'
-          onClick={() => {
-            console.log('clicked!');
-          }}>
-          Add Author
-        </Button>
+        <Link to='/authors/add'>
+          <Button
+            mx={1}
+            backgroundColor={colorMode === 'light' ? 'teal.400' : 'teal.600'}
+            size='md'>
+            Add Author
+          </Button>
+        </Link>
       </Flex>
       <Container centerContent maxWidth='600px'>
         {loading ? (
@@ -87,7 +88,7 @@ const AuthorsPage = () => {
               <Tr>
                 <Th>First Name</Th>
                 <Th>Last Name</Th>
-                <Th isNumeric>Books</Th>
+                <Th isNumeric>Edit</Th>
               </Tr>
             </Thead>
             <Tbody>
@@ -103,7 +104,14 @@ const AuthorsPage = () => {
                   <Tr key={i}>
                     <Td>{author.firstName}</Td>
                     <Td>{author.lastName}</Td>
-                    <Td isNumeric>1</Td>
+                    <Td isNumeric mr={2} pt={1} pb={1}>
+                      {/* to=`/authors/edit/${author._id}` */}
+                      <Link to='#'>
+                        <Button variant='outline' p={0}>
+                          <FaEdit />
+                        </Button>
+                      </Link>
+                    </Td>
                   </Tr>
                 ))}
               {/* <Tr backgroundColor='red.100' textColor='gray.800'>
@@ -114,7 +122,7 @@ const AuthorsPage = () => {
               <Tr>
                 <Th>First Name</Th>
                 <Th>Last Name</Th>
-                <Th isNumeric>Books</Th>
+                <Th isNumeric>Edit</Th>
               </Tr>
             </Tfoot>
           </Table>

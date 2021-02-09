@@ -7,6 +7,7 @@ import LandingPage from './Pages/LandingPage';
 import AuthorsPage from './Pages/AuthorsPage';
 import BooksPage from './Pages/BooksPage';
 import BookPage from './Pages/BookPage';
+import AuthorEditOrAddPage from './Pages/AuthorEditOrAdd';
 
 const theme = {
   ...defaultTheme,
@@ -31,6 +32,12 @@ function App() {
         <Switch>
           <Route exact path='/' component={LandingPage} />
           <Route exact path='/authors' component={AuthorsPage} />
+          <Route exact path='/authors/add' component={AuthorEditOrAddPage} />
+          <Route
+            exact
+            path='/authors/edit/:authorId'
+            component={AuthorEditOrAddPage}
+          />
           <Route exact path='/books' component={BooksPage} />
           <Route exact path='/books/:bookId' component={BookPage} />
         </Switch>
