@@ -108,8 +108,7 @@ const AuthorsPage = () => {
                     <Td>{author.firstName}</Td>
                     <Td>{author.lastName}</Td>
                     <Td isNumeric mr={2} pt={1} pb={1}>
-                      {/* to=`/authors/edit/${author._id}` */}
-                      <Link to='#'>
+                      <Link to={`/authors/edit/${author._id}`}>
                         <Button variant='outline' p={0}>
                           <FaEdit />
                         </Button>

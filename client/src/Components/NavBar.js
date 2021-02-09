@@ -10,8 +10,6 @@ const Navbar = ({ location }) => {
   const { colorMode, toggleColorMode } = useColorMode('dark');
   const bgColor = { light: 'gray.300', dark: 'gray.600' };
   const textColor = { light: 'black', dark: 'gray.100' };
-  console.log(location.pathname);
-  console.log(location.pathname.startsWith('/books'));
 
   return (
     <Flex

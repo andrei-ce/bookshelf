@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Input,
   Stack,
@@ -7,25 +7,25 @@ import {
   Divider,
   useColorMode,
 } from '@chakra-ui/react';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { FaUserPlus, FaEdit } from 'react-icons/fa';
 
 import axiosCall from '../../Utils/axios';
 
-const AuthorForm = ({ mode }) => {
+const AuthorForm = ({ mode, ...props }) => {
   const { colorMode } = useColorMode();
+  const authorId = props.match.params.authorId || null;
 
-  // form
+  // State
   const initialValues = {
     firstName: '',
     lastName: '',
   };
-
-  //state
   const [formData, setFormData] = useState(initialValues);
   const [loading, setLoading] = useState(false);
 
-  // functions
+  // Functions
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     console.log(formData);
@@ -34,9 +34,23 @@ const AuthorForm = ({ mode }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    await axiosCall.post('/authors', formData);
+    if (mode === 'add') {
+      await axiosCall.post('/authors', formData);
+    } else {
+      await axiosCall.put(`/authors/${authorId}`, formData);
+    }
     setLoading(false);
+    props.history.goBack();
   };
+
+  // Effects
+  // If we are editing, make get call here and pass first & lastName as props
+  useEffect(async () => {
+    if (mode === 'edit') {
+      let response = await axiosCall.get(`/authors/${authorId}`);
+      setFormData(response.data);
+    }
+  }, []);
 
   return (
     <form onSubmit={(e) => handleSubmit(e)} action='submit'>
@@ -46,12 +60,13 @@ const AuthorForm = ({ mode }) => {
         alignItems='center'
         justify='center'
         borderRadius='lg'
+        boxShadow='xl'
         spacing={3}>
         <FormControl isRequired>
           <Input
             type='name'
             name='firstName'
-            autoComplete='off'
+            value={formData.firstName}
             placeholder='First name'
             aria-label='First name'
             borderColor={colorMode === 'light' ? 'gray.500' : 'gray.300'}
@@ -63,7 +78,7 @@ const AuthorForm = ({ mode }) => {
           <Input
             type='name'
             name='lastName'
-            autoComplete='off'
+            value={formData.lastName}
             placeholder='Last name'
             aria-label='Last name'
             borderColor={colorMode === 'light' ? 'gray.500' : 'gray.300'}
@@ -87,4 +102,4 @@ AuthorForm.propTypes = {
   mode: PropTypes.string.isRequired,
 };
 
-export default AuthorForm;
+export default withRouter(AuthorForm);

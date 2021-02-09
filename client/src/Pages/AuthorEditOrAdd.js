@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Button } from '@chakra-ui/react';
 import { FaChevronLeft } from 'react-icons/fa';
@@ -6,13 +6,8 @@ import { FaChevronLeft } from 'react-icons/fa';
 import Background from '../Components/Background';
 import AuthorForm from '../Components/Forms/AuthorForm';
 
-import axiosCall from '../Utils/axios';
-
-const AuthorEditOrAddPage = ({ location, ...props }) => {
-  //receive query params = edit or add? --> pass into Form
-  const authorId = props.match.params.authorId || null;
-  // console.log(authorId);
-  // console.log(location.pathname);
+const AuthorEditOrAddPage = ({ location }) => {
+  // The user can get here through 2 buttons : add author & edit author, from AuthorsPage
   const mode = location.pathname.startsWith('/authors/add') ? 'add' : 'edit';
 
   return (
