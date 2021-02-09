@@ -6,6 +6,7 @@ import NavBar from './Components/NavBar';
 import LandingPage from './Pages/LandingPage';
 import AuthorsPage from './Pages/AuthorsPage';
 import BooksPage from './Pages/BooksPage';
+import BookPage from './Pages/BookPage';
 
 const theme = {
   ...defaultTheme,
@@ -31,6 +32,7 @@ function App() {
           <Route exact path='/' component={LandingPage} />
           <Route exact path='/authors' component={AuthorsPage} />
           <Route exact path='/books' component={BooksPage} />
+          <Route exact path='/books/:bookId' component={BookPage} />
         </Switch>
       </BrowserRouter>
     </ChakraProvider>

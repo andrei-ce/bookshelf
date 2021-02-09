@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import {
+  Flex,
   Box,
+  Button,
   SimpleGrid,
   Container,
   Input,
@@ -38,7 +40,7 @@ const BooksPage = () => {
 
   return (
     <Background>
-      <Box
+      <Flex
         backgroundColor={colorMode === 'light' ? 'gray.300' : 'gray.800'}
         borderRadius='md'
         p={1}
@@ -57,7 +59,16 @@ const BooksPage = () => {
             _placeholder={{ color: colorMode === 'light' ? 'gray.600' : 'gray.300' }}
           />
         </InputGroup>
-      </Box>
+        <Button
+          mr={1}
+          colorScheme='teal'
+          size='md'
+          onClick={() => {
+            console.log('clicked!');
+          }}>
+          Add Book
+        </Button>
+      </Flex>
       <Container mt={4} maxWidth='1600px' centerContent>
         {loading ? (
           <Spinner isIndeterminate color='teal.400' size='120px' />
@@ -74,6 +85,7 @@ const BooksPage = () => {
               .map((book, i) => (
                 <Book
                   key={i}
+                  bookId={book._id}
                   title={book.title}
                   authors={book.authors}
                   description={book.description}

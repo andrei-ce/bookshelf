@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
+  Flex,
   Box,
   InputGroup,
   InputRightElement,
@@ -11,6 +12,7 @@ import {
   Tr,
   Th,
   Td,
+  Button,
   Container,
   CircularProgress as Spinner,
   useColorMode,
@@ -42,7 +44,7 @@ const AuthorsPage = () => {
 
   return (
     <Background>
-      <Box
+      <Flex
         backgroundColor={colorMode === 'light' ? 'gray.200' : 'gray.900'}
         borderRadius='md'
         p={1}
@@ -60,7 +62,16 @@ const AuthorsPage = () => {
             placeholder='Search...'
           />
         </InputGroup>
-      </Box>
+        <Button
+          mr={1}
+          colorScheme='teal'
+          size='md'
+          onClick={() => {
+            console.log('clicked!');
+          }}>
+          Add Author
+        </Button>
+      </Flex>
       <Container centerContent maxWidth='600px'>
         {loading ? (
           <Spinner isIndeterminate color='teal.400' size='120px' />
