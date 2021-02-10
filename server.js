@@ -2,6 +2,7 @@
 const express = require('express');
 const cors = require('cors');
 const connectDb = require('./utils/dbConnection');
+const path = require('path');
 
 // init express app
 const app = express();
@@ -21,6 +22,16 @@ if (app.get('env') !== 'production') {
 // define routes
 app.use('/authors', require('./routes/authors'));
 app.use('/books', require('./routes/books'));
+
+//config for heroku deployment
+if (process.env.NODE_ENV === 'production') {
+  //Set static folder created in 'run build'
+  app.use(express.static('client/build'));
+  //for any path (that not the above), send the index.html file from directory name client to directory name build
+  app.get('*', (req, res) =>
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+  );
+}
 
 // server listen
 const PORT = process.env.PORT || 5000;
