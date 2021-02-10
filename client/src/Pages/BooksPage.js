@@ -49,7 +49,7 @@ const BooksPage = () => {
         p={1}
         mt={1}
         position='absolute'
-        top={['15px', '15px', '60px', '60px']}>
+        top={['15px', '15px', '35px', '35px']}>
         <InputGroup>
           <InputRightElement
             pointerEvents='none'
@@ -57,6 +57,7 @@ const BooksPage = () => {
           />
           <Input
             type='text'
+            maxW='200px'
             onChange={(e) => searchBooks(e)}
             placeholder='Search titles...'
             border='transparent'

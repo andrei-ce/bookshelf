@@ -95,7 +95,7 @@ const AuthorsPage = () => {
         p={1}
         mt={1}
         position='absolute'
-        top={['15px', '15px', '60px', '60px']}>
+        top={['15px', '15px', '35px', '35px']}>
         <InputGroup>
           <InputRightElement
             pointerEvents='none'
@@ -103,7 +103,7 @@ const AuthorsPage = () => {
           />
           <Input
             type='text'
-            w='200px'
+            maxW='200px'
             onChange={(e) => searchAuthors(e)}
             border='transparent'
             placeholder='Search authors...'
