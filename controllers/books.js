@@ -34,7 +34,7 @@ exports.getBookById = async (req, res, next) => {
 // =========================
 exports.postBook = async (req, res, next) => {
   try {
-    const { title, cover, authors, description, isbn } = req.body;
+    const { title, cover, author, description, isbn } = req.body;
     cover = normalizeUrl(cover);
     // check if isbn is already in the database
     const bookExists = await Book.findOne({ isbn });
@@ -43,8 +43,8 @@ exports.postBook = async (req, res, next) => {
         .status(409)
         .json({ errors: [{ msg: 'This book is already in our database' }] });
     }
-    // **TODO** check if authors exist in database --> if not error or create new author?
-    const book = new Book({ title, cover, authors, description, isbn });
+    // **TODO** check if author exist in database
+    const book = new Book({ title, cover, author, description, isbn });
     const newBook = await book.save();
 
     res.status(201).json(newBook);
@@ -66,19 +66,19 @@ exports.editBookById = async (req, res, next) => {
         .json({ errors: [{ msg: 'No book found under this id' }] });
     }
 
-    const { title, cover, authors, description, isbn } = req.body;
+    const { title, cover, author, description, isbn } = req.body;
     if (
       title === book.title &&
       cover === book.cover &&
       isbn === book.isbn.toString() &&
       description === book.description &&
-      arrayEquals(authors, book.authors)
+      author === book.author
     ) {
       return res.status(400).json({ errors: [{ msg: 'No changes detected' }] });
     } else {
       editedBook = await Book.findOneAndUpdate(
         { _id: bookId },
-        { $set: { title, cover, authors, description, isbn } },
+        { $set: { title, cover, author, description, isbn } },
         //to return the object after the update was applied
         { new: true }
       );
@@ -92,11 +92,11 @@ exports.editBookById = async (req, res, next) => {
 // HELPER FUNCTIONS
 // =========================
 
-arrayEquals = (a, b) => {
-  return (
-    Array.isArray(a) &&
-    Array.isArray(b) &&
-    a.length === b.length &&
-    a.every((val, index) => val.toString() === b[index].toString())
-  );
-};
+// arrayEquals = (a, b) => {
+//   return (
+//     Array.isArray(a) &&
+//     Array.isArray(b) &&
+//     a.length === b.length &&
+//     a.every((val, index) => val.toString() === b[index].toString())
+//   );
+// };

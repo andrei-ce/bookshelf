@@ -13,13 +13,11 @@ const bookSchema = new mongoose.Schema({
     type: String,
     default: 'https://i.ibb.co/D9Yqggx/Horror-Cover017.jpg',
   },
-  authors: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: 'Author',
-    },
-  ],
+  author: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'Author',
+  },
   description: {
     type: String,
     required: true,
