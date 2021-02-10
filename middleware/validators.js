@@ -52,20 +52,9 @@ exports.postBookValidator = [
     .trim()
     .isLength({ min: 10, max: 300 }),
   check('isbn', 'Please include a valid ISBN-13').trim().isISBN(13),
-  check('authors', 'Please include at least one author')
+  check('author', 'Please include at least one author')
     .trim()
     .isLength({ min: 24, max: 24 }),
-  //check if its in the author's database
-  //
-  // check('authors').custom((authors) => {
-  //   authors.map((author) => {
-  //     if (author.length()) {
-  //       throw new Error('Authors are not in our database yet');
-  //     } else {
-  //       return true;
-  //     }
-  //   });
-  // }),
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

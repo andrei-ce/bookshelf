@@ -1,10 +1,11 @@
 const Book = require('../models/Book');
 const normalizeUrl = require('normalize-url');
+
 // GET BOOKS
 // =========================
 exports.getBooks = async (req, res, next) => {
   try {
-    const books = await Book.find().populate('authors');
+    const books = await Book.find().populate('author');
     res.json(books);
   } catch (error) {
     console.log(error);
@@ -16,7 +17,7 @@ exports.getBooks = async (req, res, next) => {
 exports.getBookById = async (req, res, next) => {
   try {
     const { bookId } = req.params;
-    const book = await Book.findById(bookId).populate('authors');
+    const book = await Book.findById(bookId).populate('author');
 
     if (!book) {
       return res
@@ -34,8 +35,8 @@ exports.getBookById = async (req, res, next) => {
 // =========================
 exports.postBook = async (req, res, next) => {
   try {
-    const { title, cover, author, description, isbn } = req.body;
-    cover = normalizeUrl(cover);
+    const { title, author, description, isbn } = req.body;
+    let cover = normalizeUrl(req.body.cover);
     // check if isbn is already in the database
     const bookExists = await Book.findOne({ isbn });
     if (bookExists) {

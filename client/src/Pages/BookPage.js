@@ -76,8 +76,9 @@ const BookPage = (props) => {
             {/* // FOOTER SECTION*/}
 
             <Flex direction='row' justify='space-between' p={3}>
-              <Box w='60%'>
+              <Box w='50%'>
                 <Text
+                  fontSize={['12px', '12px', '14px', '16px']}
                   color={colorMode === 'light' ? 'gray.600' : 'gray.100'}
                   fontWeight='semibold'
                   fontSize='sm'
@@ -85,21 +86,20 @@ const BookPage = (props) => {
                   px='1'>
                   AUTHOR:{' '}
                 </Text>
-                {bookDetails.authors.map((author, i) => (
-                  <Badge
-                    as='span'
-                    key={i}
-                    mr={1}
-                    display='inline'
-                    borderRadius='full'
-                    px='3'
-                    colorScheme='teal'>
-                    {`${author.firstName} ${author.lastName}`}
-                  </Badge>
-                ))}
+                <Badge
+                  fontSize={['12px', '12px', '14px', '16px']}
+                  as='span'
+                  mr={1}
+                  display='inline'
+                  borderRadius='full'
+                  px='3'
+                  colorScheme='teal'>
+                  {`${bookDetails.author.firstName} ${bookDetails.author.lastName}`}
+                </Badge>
               </Box>
-              <Box justifyContent='end' w='40%'>
+              <Box justifyContent='end' w='50%'>
                 <Text
+                  fontSize={['12px', '12px', '14px', '16px']}
                   color={colorMode === 'light' ? 'gray.600' : 'gray.100'}
                   fontWeight='semibold'
                   fontSize='sm'
@@ -108,6 +108,7 @@ const BookPage = (props) => {
                   ISBN:
                 </Text>
                 <Badge
+                  fontSize={['12px', '12px', '14px', '16px']}
                   as='span'
                   mr={1}
                   display='inline'

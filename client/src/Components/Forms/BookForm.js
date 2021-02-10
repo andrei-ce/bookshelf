@@ -9,9 +9,11 @@ import {
   FormErrorMessage,
   FormHelperText,
   Textarea,
+  Select,
+  Link as ChakraLink,
   useColorMode,
 } from '@chakra-ui/react';
-import { withRouter } from 'react-router-dom';
+import { Link as ReachLink, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { FaPlus, FaEdit } from 'react-icons/fa';
 
@@ -26,7 +28,7 @@ const BookForm = ({ mode, ...props }) => {
     title: '',
     description: '',
     cover: '',
-    authors: [],
+    author: '',
     isbn: '',
   };
   const [formData, setFormData] = useState(initialValues);
@@ -34,6 +36,7 @@ const BookForm = ({ mode, ...props }) => {
   const [invalidISBN, setInvalidISBN] = useState(false);
   const [invalidDesc, setInvalidDesc] = useState(false);
   const [authors, setAuthors] = useState([]);
+  const [authorId, setAuthorId] = useState(undefined);
 
   // Validators:
   const checkISBN = (value) =>
@@ -44,7 +47,7 @@ const BookForm = ({ mode, ...props }) => {
   // Form Actions:
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    // check for ISBN
+    // check for ISBN & Description validators
     if (e.target.name === 'isbn') {
       checkISBN(e.target.value.length);
     } else if (e.target.name === 'description') {
@@ -57,23 +60,30 @@ const BookForm = ({ mode, ...props }) => {
     setLoading(true);
     if (mode === 'add') {
       await axiosCall.post('/books', formData);
+    } else {
+      await axiosCall.put(`/books/${bookId}`, formData);
     }
-    // else {
-    //   await axiosCall.put(`/books/${authorId}`, formData);
-    // }
     setLoading(false);
-    // props.history.goBack();
-    console.log('form will be submited in mode: ', mode);
+    props.history.goBack();
   };
 
   // Effects:
-  // if we are editing, make get call here and pass first & lastName as props
   useEffect(async () => {
     setLoading(true);
+    // if in edit mode, fetch current book information
     if (mode === 'edit') {
-      let response = await axiosCall.get(`/books/${bookId}`);
-      setFormData(response.data);
+      let bookDetails = await axiosCall.get(`/books/${bookId}`);
+      // save authorId separated from authorFullName --> this is because selected value in <Select/> won´t persist if not directly referencing state
+      const editedBookDetails = {
+        ...bookDetails.data,
+        author: `${bookDetails.data.author.firstName} ${bookDetails.data.author.lastName}`,
+      };
+      setAuthorId(bookDetails.data.author._id);
+      setFormData(editedBookDetails);
     }
+    // either way, fetch all possible authors
+    let allAuthors = await axiosCall.get(`/authors`);
+    setAuthors(allAuthors.data);
     setLoading(false);
   }, []);
 
@@ -120,17 +130,35 @@ const BookForm = ({ mode, ...props }) => {
         </FormControl>
         <FormControl isRequired>
           <FormLabel htmlFor='author'>Author</FormLabel>
-
-          <Input
-            type='text'
+          {/* =============== */}
+          {/* =============== */}
+          {/* =============== */}
+          <Select
+            placeholder='Select country'
             name='author'
-            value={formData.authors}
-            placeholder='Authors...'
+            value={authorId}
+            placeholder='Select one'
             aria-label='Authors'
             borderColor={colorMode === 'light' ? 'gray.500' : 'gray.300'}
             _placeholder={{ color: colorMode === 'light' ? 'gray.600' : 'gray.300' }}
-            onChange={(e) => onChange(e)}
-          />
+            onChange={(e) => onChange(e)}>
+            {authors.map((author, i) => (
+              <option
+                key={i}
+                value={author._id}>{`${author.firstName} ${author.lastName}`}</option>
+            ))}
+          </Select>
+          <FormHelperText>
+            Please{' '}
+            <ChakraLink as={ReachLink} to='/authors/add' color='teal.500'>
+              add the author first
+            </ChakraLink>{' '}
+            if you cannot find on list
+          </FormHelperText>
+
+          {/* =============== */}
+          {/* =============== */}
+          {/* =============== */}
         </FormControl>
         <FormControl isRequired isInvalid={invalidISBN}>
           <FormLabel htmlFor='isbn'>ISBN</FormLabel>
