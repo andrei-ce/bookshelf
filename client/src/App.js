@@ -8,6 +8,7 @@ import AuthorsPage from './Pages/AuthorsPage';
 import BooksPage from './Pages/BooksPage';
 import BookPage from './Pages/BookPage';
 import AuthorEditOrAddPage from './Pages/AuthorEditOrAdd';
+import BookEditOrAddPage from './Pages/BookEditOrAdd';
 
 const theme = {
   ...defaultTheme,
@@ -39,7 +40,9 @@ function App() {
             component={AuthorEditOrAddPage}
           />
           <Route exact path='/books' component={BooksPage} />
+          <Route exact path='/books/add' component={BookEditOrAddPage} />
           <Route exact path='/books/:bookId' component={BookPage} />
+          <Route exact path='/books/edit/:bookId' component={BookEditOrAddPage} />
         </Switch>
       </BrowserRouter>
     </ChakraProvider>

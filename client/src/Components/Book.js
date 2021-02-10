@@ -40,7 +40,7 @@ Book.propTypes = {
   title: PropTypes.string.isRequired,
   cover: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  _id: PropTypes.string.isRequired,
+  bookId: PropTypes.string.isRequired,
 };
 
 export default Book;

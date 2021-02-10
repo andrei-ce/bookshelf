@@ -4,6 +4,7 @@ import {
   Stack,
   Button,
   FormControl,
+  FormLabel,
   Divider,
   useColorMode,
 } from '@chakra-ui/react';
@@ -28,7 +29,6 @@ const AuthorForm = ({ mode, ...props }) => {
   // Functions
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    console.log(formData);
   };
 
   const handleSubmit = async (e) => {
@@ -43,8 +43,8 @@ const AuthorForm = ({ mode, ...props }) => {
     props.history.goBack();
   };
 
-  // Effects
-  // If we are editing, make get call here and pass first & lastName as props
+  // Effects:
+  // if we are editing, make get call here and pass first & lastName as props
   useEffect(async () => {
     if (mode === 'edit') {
       let response = await axiosCall.get(`/authors/${authorId}`);
@@ -57,12 +57,14 @@ const AuthorForm = ({ mode, ...props }) => {
       <Stack
         backgroundColor={colorMode === 'light' ? 'gray.300' : 'gray.800'}
         p={4}
+        w={['300px', '400px', '500px', '500px']}
         alignItems='center'
         justify='center'
         borderRadius='lg'
         boxShadow='xl'
         spacing={3}>
         <FormControl isRequired>
+          <FormLabel htmlFor='firstName'>First name</FormLabel>
           <Input
             type='name'
             name='firstName'
@@ -74,7 +76,9 @@ const AuthorForm = ({ mode, ...props }) => {
             onChange={(e) => onChange(e)}
           />
         </FormControl>
+
         <FormControl isRequired>
+          <FormLabel htmlFor='lastName'>Last name</FormLabel>
           <Input
             type='name'
             name='lastName'

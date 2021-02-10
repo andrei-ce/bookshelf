@@ -63,7 +63,7 @@ const AuthorsPage = () => {
           <Input
             type='text'
             onChange={(e) => searchAuthors(e)}
-            placeholder='Search...'
+            placeholder='Search authors...'
             _placeholder={{ color: colorMode === 'light' ? 'gray.600' : 'gray.300' }}
           />
         </InputGroup>

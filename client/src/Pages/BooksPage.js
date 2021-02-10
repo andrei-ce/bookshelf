@@ -12,6 +12,7 @@ import {
   useColorMode,
 } from '@chakra-ui/react';
 import { FaSearch } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 import Background from '../Components/Background';
 import Book from '../Components/Book';
@@ -59,15 +60,11 @@ const BooksPage = () => {
             _placeholder={{ color: colorMode === 'light' ? 'gray.600' : 'gray.300' }}
           />
         </InputGroup>
-        <Button
-          mr={1}
-          colorScheme='teal'
-          size='md'
-          onClick={() => {
-            console.log('clicked!');
-          }}>
-          Add Book
-        </Button>
+        <Link to='/books/add'>
+          <Button mr={1} colorScheme='teal' size='md'>
+            Add Book
+          </Button>
+        </Link>
       </Flex>
       <Container mt={4} maxWidth='1600px' centerContent>
         {loading ? (

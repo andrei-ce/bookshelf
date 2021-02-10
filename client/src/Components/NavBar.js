@@ -27,7 +27,7 @@ const Navbar = ({ location }) => {
       top='0'
       right='0'>
       <Flex w={['90vw', '90vw', '80vw', '80vw']} align='center' justify='space-around'>
-        {/* LOGO */}
+        {/* LOGO: need to fix first load */}
         <Box>
           <Image
             w={['10vh', '10vh', '12vh', '14vh']}

@@ -83,7 +83,7 @@ const BookPage = (props) => {
                   fontSize='sm'
                   as='span'
                   px='1'>
-                  AUTHORS:{' '}
+                  AUTHOR:{' '}
                 </Text>
                 {bookDetails.authors.map((author, i) => (
                   <Badge
@@ -140,7 +140,7 @@ const BookPage = (props) => {
           </Button>
         </Link>
         <Tooltip label='Edit this book' aria-label='Tooltip'>
-          <Link to='#'>
+          <Link to={`/books/edit/${bookDetails._id}`}>
             <Button
               boxShadow='dark-lg'
               mt={4}
