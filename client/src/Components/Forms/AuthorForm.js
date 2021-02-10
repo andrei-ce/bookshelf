@@ -41,7 +41,7 @@ const AuthorForm = ({ mode, ...props }) => {
       await axiosCall.PUT(`/authors/${authorId}`, formData);
     }
     setLoading(false);
-    // props.history.goBack();
+    props.history.goBack();
   };
 
   // Effects:
