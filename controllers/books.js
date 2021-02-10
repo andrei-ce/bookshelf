@@ -5,7 +5,7 @@ const normalizeUrl = require('normalize-url');
 // =========================
 exports.getBooks = async (req, res, next) => {
   try {
-    const books = await Book.find().populate('author');
+    const books = await Book.find().populate('author').sort('title');
     res.json(books);
   } catch (error) {
     console.log(error);
