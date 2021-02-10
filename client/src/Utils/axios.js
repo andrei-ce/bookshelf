@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseUrl = 'http://localhost:5000';
+const baseUrl = 'https://bookshelf-ac.herokuapp.com/';
 const contentJSON = { 'Content-type': 'application/json' };
 
 const axiosCall = {
