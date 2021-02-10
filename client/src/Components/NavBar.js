@@ -26,14 +26,19 @@ const Navbar = ({ location }) => {
       zIndex='100'
       top='0'
       right='0'>
-      <Flex w={['90vw', '90vw', '80vw', '80vw']} align='center' justify='space-around'>
+      <Flex
+        w={['90vw', '90vw', '80vw', '80vw']}
+        h='10vh'
+        align='center'
+        justify='space-around'
+        overflow='hidden'>
         {/* LOGO: need to fix first load */}
-        <Box>
-          <Image
-            w={['10vh', '10vh', '12vh', '14vh']}
-            src={colorMode === 'light' ? logo : logoDarkMode}
-            alt='Bookshelf Logo'
-          />
+        <Box
+          w={['10vh', '12vh', '14vh', '14vh']}
+          backgroundColor={
+            colorMode === 'light' ? 'transparent.300' : 'transparent.700'
+          }>
+          <Image src={logoDarkMode} alt='Bookshelf Logo' />
         </Box>
         {/* MENU OPTIONS */}
         <Stack
