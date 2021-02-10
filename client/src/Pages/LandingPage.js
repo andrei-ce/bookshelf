@@ -9,6 +9,7 @@ const LandingPage = () => {
     <Background>
       <Container centerContent>
         <Hero
+          landing={true}
           title='Welcome, young reader!'
           imageUrl='https://source.unsplash.com/rBYYsIQcPBE'
           imageAlt='Woman reading'

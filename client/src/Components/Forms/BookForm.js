@@ -59,9 +59,9 @@ const BookForm = ({ mode, ...props }) => {
     e.preventDefault();
     setLoading(true);
     if (mode === 'add') {
-      await axiosCall.post('/books', formData);
+      await axiosCall.POST('/books', formData);
     } else {
-      await axiosCall.put(`/books/${bookId}`, formData);
+      await axiosCall.PUT(`/books/${bookId}`, formData);
     }
     setLoading(false);
     props.history.goBack();
@@ -72,7 +72,7 @@ const BookForm = ({ mode, ...props }) => {
     setLoading(true);
     // if in edit mode, fetch current book information
     if (mode === 'edit') {
-      let bookDetails = await axiosCall.get(`/books/${bookId}`);
+      let bookDetails = await axiosCall.GET(`/books/${bookId}`);
       // save authorId separated from authorFullName --> this is because selected value in <Select/> won´t persist if not directly referencing state
       const editedBookDetails = {
         ...bookDetails.data,
@@ -82,7 +82,7 @@ const BookForm = ({ mode, ...props }) => {
       setFormData(editedBookDetails);
     }
     // either way, fetch all possible authors
-    let allAuthors = await axiosCall.get(`/authors`);
+    let allAuthors = await axiosCall.GET(`/authors`);
     setAuthors(allAuthors.data);
     setLoading(false);
   }, []);

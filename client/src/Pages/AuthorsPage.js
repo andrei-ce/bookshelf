@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
   Flex,
-  Box,
+  Text,
   InputGroup,
   InputRightElement,
   Input,
@@ -37,17 +37,58 @@ const AuthorsPage = () => {
     setSearchText(e.target.value);
   };
 
+  const loadTableContent = () => {
+    let rows = authors
+      .filter((author) => {
+        let fullName = author.firstName + ' ' + author.lastName;
+        return (
+          fullName.toLowerCase().includes(searchText.toLowerCase()) ||
+          searchText === ''
+        );
+      })
+      .map((author, i) => (
+        <Tr key={i}>
+          <Td>{author.firstName}</Td>
+          <Td>{author.lastName}</Td>
+          <Td isNumeric mr={2} pt={1} pb={1}>
+            <Link to={`/authors/edit/${author._id}`}>
+              <Button variant='outline' p={0}>
+                <FaEdit />
+              </Button>
+            </Link>
+          </Td>
+        </Tr>
+      ));
+    console.log(rows.length === 0);
+
+    if (rows.length === 0) {
+      return (
+        <Tr w='600px' backgroundColor='red.300'>
+          <Th>
+            <Text color='gray.800'>No results match your criteria</Text>
+          </Th>
+          <Th></Th>
+          <Th></Th>
+        </Tr>
+      );
+    } else {
+      return rows;
+    }
+  };
+
   // effects
   useEffect(async () => {
     // This setTimeout is only for UI purposes (to see the spinner)
     await delay(1000);
-    let fetchedAuthors = await axiosCall.get('/authors');
+    let fetchedAuthors = await axiosCall.GET('/authors');
     setAuthors(fetchedAuthors.data);
     setLoading(false);
   }, []);
 
   return (
     <Background>
+      {/* SEARCH BAR SECTION  ======================  */}
+
       <Flex
         backgroundColor={colorMode === 'light' ? 'gray.300' : 'gray.800'}
         borderRadius='md'
@@ -62,7 +103,9 @@ const AuthorsPage = () => {
           />
           <Input
             type='text'
+            w='200px'
             onChange={(e) => searchAuthors(e)}
+            border='transparent'
             placeholder='Search authors...'
             _placeholder={{ color: colorMode === 'light' ? 'gray.600' : 'gray.300' }}
           />
@@ -76,6 +119,8 @@ const AuthorsPage = () => {
           </Button>
         </Link>
       </Flex>
+      {/* TABLE SECTION  ======================  */}
+
       <Container centerContent maxWidth='600px'>
         {loading ? (
           <Spinner isIndeterminate color='teal.400' size='120px' />
@@ -94,32 +139,7 @@ const AuthorsPage = () => {
                 <Th isNumeric>Edit</Th>
               </Tr>
             </Thead>
-            <Tbody>
-              {authors
-                .filter((author) => {
-                  let fullName = author.firstName + ' ' + author.lastName;
-                  return (
-                    fullName.toLowerCase().includes(searchText.toLowerCase()) ||
-                    searchText === ''
-                  );
-                })
-                .map((author, i) => (
-                  <Tr key={i}>
-                    <Td>{author.firstName}</Td>
-                    <Td>{author.lastName}</Td>
-                    <Td isNumeric mr={2} pt={1} pb={1}>
-                      <Link to={`/authors/edit/${author._id}`}>
-                        <Button variant='outline' p={0}>
-                          <FaEdit />
-                        </Button>
-                      </Link>
-                    </Td>
-                  </Tr>
-                ))}
-              {/* <Tr backgroundColor='red.100' textColor='gray.800'>
-                No results match your criteria
-              </Tr> */}
-            </Tbody>
+            <Tbody>{loadTableContent()}</Tbody>
             <Tfoot>
               <Tr>
                 <Th>First Name</Th>

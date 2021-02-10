@@ -1,10 +1,14 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import errorInterceptor from '../Utils/errorInterceptor';
 import { Button } from '@chakra-ui/react';
 import { FaChevronLeft } from 'react-icons/fa';
 
 import Background from '../Components/Background';
 import AuthorForm from '../Components/Forms/AuthorForm';
+
+// Intercept 400 and 422 responses to show standard browser alert
+errorInterceptor();
 
 const AuthorEditOrAddPage = ({ location }) => {
   // The user can get here through 2 buttons : add author & edit author, from AuthorsPage

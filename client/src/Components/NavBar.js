@@ -3,8 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { FaMoon, FaSun } from 'react-icons/fa';
 import PropTypes from 'prop-types';
 
-import logo from '../Assets/logo.png';
-import logoDarkMode from '../Assets/logo-darkmode.png';
+import logo from '../Assets/logo-darkmode.png';
 
 const Navbar = ({ location }) => {
   const { colorMode, toggleColorMode } = useColorMode('dark');
@@ -38,7 +37,7 @@ const Navbar = ({ location }) => {
           backgroundColor={
             colorMode === 'light' ? 'transparent.300' : 'transparent.700'
           }>
-          <Image src={logoDarkMode} alt='Bookshelf Logo' />
+          <Image src={logo} alt='Bookshelf Logo' />
         </Box>
         {/* MENU OPTIONS */}
         <Stack

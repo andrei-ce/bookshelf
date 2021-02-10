@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   Flex,
@@ -15,21 +15,27 @@ import { FaEdit, FaChevronLeft } from 'react-icons/fa';
 
 import Background from '../Components/Background';
 import axiosCall from '../Utils/axios';
+import errorInterceptor from '../Utils/errorInterceptor';
 import { delay } from '../Utils/utils';
+
+// Intercept 422 in case someone makes a GET request to '/books/some_invalid_id'
+errorInterceptor();
 
 const BookPage = (props) => {
   const { colorMode } = useColorMode();
   const { bookId } = props.match.params;
   const [loading, setLoading] = useState(true);
-  const [bookDetails, setBookDetails] = useState({});
+  const [bookDetails, setBookDetails] = useState(undefined);
 
   useEffect(async () => {
     // This setTimeout is only for UI purposes (to see the spinner)
     await delay(1000);
-    let fetchedBookDetails = await axiosCall.get(`/books/${bookId}`);
-    setBookDetails(fetchedBookDetails.data);
+    let fetchedBookDetails = await axiosCall.GET(`/books/${bookId}`);
+    if (fetchedBookDetails) {
+      setBookDetails(fetchedBookDetails.data);
+    }
     setLoading(false);
-    console.log();
+    console.log(bookDetails);
   }, []);
 
   return (
@@ -45,11 +51,11 @@ const BookPage = (props) => {
         align='center'>
         {loading ? (
           <Spinner isIndeterminate color='teal.400' size='120px' />
-        ) : (
+        ) : bookDetails !== undefined ? (
           <Box>
-            {/* // MAIN SECTON */}
+            {/* MAIN SECTON   ======================  */}
+
             <Flex flexDirection={['column', 'column', 'row', 'row']} p={2}>
-              {/* <Flex justify={['center', 'flex-start', 'flex-start', 'flex-start']}> */}
               <Image
                 w={['200px', '200px', '200px', '200px']}
                 h={['300px', '300px', '300px', '300px']}
@@ -59,7 +65,6 @@ const BookPage = (props) => {
                 src={bookDetails.cover}
                 alt='Book Cover'
               />
-              {/* </Flex> */}
 
               <Flex flexDirection='column' pl='2'>
                 <Text mt='1' mb='3' fontWeight='bold' as='h4'>
@@ -73,7 +78,7 @@ const BookPage = (props) => {
               </Flex>
             </Flex>
             <hr />
-            {/* // FOOTER SECTION*/}
+            {/* FOOTER SECTION  ======================  */}
 
             <Flex direction='row' justify='space-between' p={3}>
               <Box w='50%'>
@@ -120,9 +125,16 @@ const BookPage = (props) => {
               </Box>
             </Flex>
           </Box>
+        ) : (
+          <Flex h='50px' w='150px' align='center' justify='center'>
+            <Text color={colorMode === 'light' ? 'red.700' : 'red.300'}>
+              Invalid book Id
+            </Text>
+          </Flex>
         )}
       </Flex>
-      {/* put inside card */}
+      {/* ACTION BUTTONS SECTION  ======================  */}
+
       <Flex
         w={['300px', '450px', '500px', '500px']}
         direction='row'
@@ -140,19 +152,21 @@ const BookPage = (props) => {
             Back
           </Button>
         </Link>
-        <Tooltip label='Edit this book' aria-label='Tooltip'>
-          <Link to={`/books/edit/${bookDetails._id}`}>
-            <Button
-              boxShadow='dark-lg'
-              mt={4}
-              mb={5}
-              leftIcon={<FaEdit />}
-              colorScheme='teal'
-              size='md'>
-              Edit
-            </Button>
-          </Link>
-        </Tooltip>
+        {bookDetails !== undefined ? (
+          <Tooltip label='Edit this book' aria-label='Tooltip'>
+            <Link to={`/books/edit/${bookDetails._id}`}>
+              <Button
+                boxShadow='dark-lg'
+                mt={4}
+                mb={5}
+                leftIcon={<FaEdit />}
+                colorScheme='teal'
+                size='md'>
+                Edit
+              </Button>
+            </Link>
+          </Tooltip>
+        ) : null}
       </Flex>
     </Background>
   );

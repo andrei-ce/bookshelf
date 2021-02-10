@@ -6,12 +6,13 @@ import {
   Image,
   Button,
   Tooltip,
+  Divider,
   useColorMode,
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const Hero = ({ title, imageUrl, imageAlt, description }) => {
+const Hero = ({ title, imageUrl, imageAlt, description, landing }) => {
   const { colorMode } = useColorMode();
   return (
     <Box
@@ -24,7 +25,12 @@ const Hero = ({ title, imageUrl, imageAlt, description }) => {
       <Text textAlign={['center', 'center', 'left', 'left']} fontSize='4xl'>
         {title}{' '}
       </Text>
-      <hr />
+      <Divider borderColor={colorMode === 'light' ? `teal.600` : `teal.300`} />
+      {landing ? null : (
+        <Text fontSize='xl' mt={2} textAlign={['center', 'center', 'left', 'left']}>
+          404 error
+        </Text>
+      )}
       <br />
       <Stack
         justify={['center', 'center', 'left', 'left']}
@@ -35,21 +41,25 @@ const Hero = ({ title, imageUrl, imageAlt, description }) => {
         <Text fontSize='md'>{description}</Text>
       </Stack>
       <br />
-      <hr />
-      <br />
-      <Stack spacing={4} justify='space-around' direction='row' align='center'>
-        <Tooltip label='Coming soon' aria-label='Tooltip'>
-          <Button variant='outline' colorScheme='teal' size='md'>
-            SignUp
-          </Button>
-        </Tooltip>
+      {landing ? (
+        <>
+          <Divider borderColor={colorMode === 'light' ? `teal.600` : `teal.300`} />
+          <br />
+          <Stack spacing={4} justify='space-around' direction='row' align='center'>
+            <Tooltip label='Coming soon' aria-label='Tooltip'>
+              <Button variant='outline' colorScheme='teal' size='md'>
+                SignUp
+              </Button>
+            </Tooltip>
 
-        <Tooltip label='Explore our curated book listing' aria-label='Tooltip'>
-          <Button colorScheme='teal' size='md'>
-            <Link to='/books'>Browse</Link>
-          </Button>
-        </Tooltip>
-      </Stack>
+            <Tooltip label='Explore our curated book listing' aria-label='Tooltip'>
+              <Button colorScheme='teal' size='md'>
+                <Link to='/books'>Browse</Link>
+              </Button>
+            </Tooltip>
+          </Stack>
+        </>
+      ) : null}
     </Box>
   );
 };
@@ -59,6 +69,7 @@ Hero.propTypes = {
   imageUrl: PropTypes.string.isRequired,
   imageAlt: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
+  landing: PropTypes.bool.isRequired,
 };
 
 export default Hero;

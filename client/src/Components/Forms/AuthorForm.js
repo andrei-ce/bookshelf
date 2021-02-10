@@ -34,20 +34,20 @@ const AuthorForm = ({ mode, ...props }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+
     if (mode === 'add') {
-      await axiosCall.post('/authors', formData);
-    } else {
-      await axiosCall.put(`/authors/${authorId}`, formData);
+      await axiosCall.POST('/authors', formData);
+    } else if (mode === 'edit') {
+      await axiosCall.PUT(`/authors/${authorId}`, formData);
     }
     setLoading(false);
-    props.history.goBack();
+    // props.history.goBack();
   };
 
   // Effects:
-  // if we are editing, make get call here and pass first & lastName as props
   useEffect(async () => {
     if (mode === 'edit') {
-      let response = await axiosCall.get(`/authors/${authorId}`);
+      let response = await axiosCall.GET(`/authors/${authorId}`);
       setFormData(response.data);
     }
   }, []);

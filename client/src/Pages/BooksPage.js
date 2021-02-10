@@ -34,13 +34,15 @@ const BooksPage = () => {
   useEffect(async () => {
     // This setTimeout is only for UI purposes (to see the spinner)
     await delay(1000);
-    let fetchedBooks = await axiosCall.get('/books');
+    let fetchedBooks = await axiosCall.GET('/books');
     setBooks(fetchedBooks.data);
     setLoading(false);
   }, []);
 
   return (
     <Background>
+      {/* SEARCH BAR SECTION  ======================  */}
+
       <Flex
         backgroundColor={colorMode === 'light' ? 'gray.300' : 'gray.800'}
         borderRadius='md'
@@ -57,15 +59,21 @@ const BooksPage = () => {
             type='text'
             onChange={(e) => searchBooks(e)}
             placeholder='Search titles...'
+            border='transparent'
             _placeholder={{ color: colorMode === 'light' ? 'gray.600' : 'gray.300' }}
           />
         </InputGroup>
         <Link to='/books/add'>
-          <Button mr={1} colorScheme='teal' size='md'>
+          <Button
+            mr={1}
+            backgroundColor={colorMode === 'light' ? 'teal.400' : 'teal.600'}
+            size='md'>
             Add Book
           </Button>
         </Link>
       </Flex>
+      {/* BOOK COMPONENT GRID SECTION  ======================  */}
+
       <Container mt={4} maxWidth='1600px' centerContent>
         {loading ? (
           <Spinner isIndeterminate color='teal.400' size='120px' />
