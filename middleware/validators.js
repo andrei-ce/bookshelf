@@ -1,4 +1,4 @@
-const { check, param, isMongoId, validationResult } = require('express-validator');
+const { check, param, validationResult } = require('express-validator');
 
 // AUTHOR VALIDATORS
 // =========================
@@ -55,6 +55,37 @@ exports.postBookValidator = [
   check('author', 'Please include at least one author')
     .trim()
     .isLength({ min: 24, max: 24 }),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+    next();
+  },
+];
+
+// USER VALIDATORS
+// =========================
+exports.loginUserValidator = [
+  check('email', 'Please include a valid email').trim().isEmail(),
+  check('password', 'Password is required').notEmpty(),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+    next();
+  },
+];
+
+exports.registerUserValidator = [
+  check('username', 'Please include a username of min 3 characters').isLength({
+    min: 3,
+  }),
+  check('email', 'Please include a valid email').trim().isEmail(),
+  check('password', 'Password needs to have at least 6 characters').isLength({
+    min: 6,
+  }),
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

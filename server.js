@@ -20,6 +20,7 @@ if (app.get('env') !== 'production') {
 }
 
 // define routes
+app.use('/auth', require('./routes/auth'));
 app.use('/authors', require('./routes/authors'));
 app.use('/books', require('./routes/books'));
 
