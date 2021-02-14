@@ -72,7 +72,7 @@ const LoginPage = ({ login, isAuth, isLoading, history }) => {
           <FormControl isRequired>
             <FormLabel htmlFor='password'>Password</FormLabel>
             <Input
-              type='name'
+              type='password'
               name='password'
               value={formData.password}
               placeholder='password'

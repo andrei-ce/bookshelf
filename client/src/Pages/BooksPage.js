@@ -9,17 +9,19 @@ import {
   InputRightElement,
   CircularProgress as Spinner,
   useColorMode,
+  Tooltip,
 } from '@chakra-ui/react';
 import { FaSearch } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import Background from '../Components/Background';
 import Book from '../Components/Book';
-
 import axiosCall from '../Utils/axios';
 import { delay } from '../Utils/utils';
 
-const BooksPage = () => {
+const BooksPage = ({ isAuth }) => {
   const { colorMode } = useColorMode();
 
   const [books, setBooks] = useState([]);
@@ -63,14 +65,17 @@ const BooksPage = () => {
             _placeholder={{ color: colorMode === 'light' ? 'gray.600' : 'gray.300' }}
           />
         </InputGroup>
-        <Link to='/books/add'>
-          <Button
-            mr={1}
-            backgroundColor={colorMode === 'light' ? 'teal.400' : 'teal.600'}
-            size='md'>
-            Add Book
-          </Button>
-        </Link>
+        <Tooltip label={isAuth ? 'Add book' : 'Login to add books'}>
+          <Link to='/books/add'>
+            <Button
+              isDisabled={!isAuth}
+              mr={1}
+              backgroundColor={colorMode === 'light' ? 'teal.400' : 'teal.600'}
+              size='md'>
+              Add Book
+            </Button>
+          </Link>
+        </Tooltip>
       </Flex>
       {/* BOOK COMPONENT GRID SECTION  ======================  */}
 
@@ -105,4 +110,12 @@ const BooksPage = () => {
   );
 };
 
-export default BooksPage;
+BooksPage.propTypes = {
+  isAuth: PropTypes.bool.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  isAuth: state.auth.isAuth,
+});
+
+export default connect(mapStateToProps, {})(BooksPage);

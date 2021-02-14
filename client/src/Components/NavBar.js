@@ -16,6 +16,7 @@ import { logout } from '../store/actions/auth';
 import logo from '../Assets/logo-darkmode.png';
 
 const Navbar = ({ location, isAuth, logout }) => {
+  // console.log(isAuth);
   const { colorMode, toggleColorMode } = useColorMode('dark');
   const bgColor = { light: 'gray.300', dark: 'gray.600' };
   const textColor = { light: 'black', dark: 'gray.100' };
@@ -24,7 +25,6 @@ const Navbar = ({ location, isAuth, logout }) => {
     e.preventDefault();
     logout();
   };
-  console.log(isAuth);
   return (
     <Flex
       w='100vw'

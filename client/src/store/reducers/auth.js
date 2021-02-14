@@ -11,7 +11,7 @@ import {
 const initState = {
   token: localStorage.getItem('token'),
   user: null,
-  isAuth: null, // explicitly say it hasn't tried to authenticate yet
+  isAuth: false,
   loading: true,
 };
 

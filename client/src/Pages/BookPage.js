@@ -12,6 +12,8 @@ import {
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { FaEdit, FaChevronLeft } from 'react-icons/fa';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import Background from '../Components/Background';
 import axiosCall from '../Utils/axios';
@@ -21,9 +23,9 @@ import { delay } from '../Utils/utils';
 // Intercept 422 in case someone makes a GET request to '/books/some_invalid_id'
 errorInterceptor();
 
-const BookPage = (props) => {
+const BookPage = ({ match, isAuth }) => {
   const { colorMode } = useColorMode();
-  const { bookId } = props.match.params;
+  const { bookId } = match.params;
   const [loading, setLoading] = useState(true);
   const [bookDetails, setBookDetails] = useState(undefined);
 
@@ -35,7 +37,6 @@ const BookPage = (props) => {
       setBookDetails(fetchedBookDetails.data);
     }
     setLoading(false);
-    console.log(bookDetails);
   }, []);
 
   return (
@@ -152,7 +153,7 @@ const BookPage = (props) => {
             Back
           </Button>
         </Link>
-        {bookDetails !== undefined ? (
+        {bookDetails !== undefined && isAuth ? (
           <Tooltip label='Edit this book' aria-label='Tooltip'>
             <Link to={`/books/edit/${bookDetails._id}`}>
               <Button
@@ -172,4 +173,12 @@ const BookPage = (props) => {
   );
 };
 
-export default BookPage;
+BookPage.propTypes = {
+  isAuth: PropTypes.bool.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  isAuth: state.auth.isAuth,
+});
+
+export default connect(mapStateToProps, {})(BookPage);
