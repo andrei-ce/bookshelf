@@ -8,7 +8,20 @@ const path = require('path');
 const app = express();
 
 // connect database
-connectDb();
+if (process.env.NODE_ENV !== 'test') {
+  connectDb();
+} else {
+  console.log(
+    `
+    Attention! ENV variable set to: ${process.env.NODE_ENV} \n
+    ========================================== \n
+    This means that the database connections and disconnections will be made through test files in root/test \n
+    ==========================================
+    `
+  );
+  // this would be a placeholder to connect to a different database when ENV_NODE = test, if needed
+  // in this case I will use the same database and delete any created resources after testing
+}
 
 // init middlewares
 app.use(express.json({ extended: false }));
@@ -37,3 +50,5 @@ if (process.env.NODE_ENV === 'production') {
 // server listen
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+module.exports = app;

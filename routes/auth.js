@@ -23,4 +23,9 @@ router.post('/login', loginUserValidator, authController.loginUser);
 // @access  Public
 router.post('/register', registerUserValidator, authController.registerUser);
 
+// @route   DELETE/auth/deleteTestUser
+// @desc    Deletes test user with email registered@test.com
+// @access  Public
+router.delete('/deleteTestUser', authController.deleteTestUser);
+
 module.exports = router;

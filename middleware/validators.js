@@ -64,7 +64,7 @@ exports.postBookValidator = [
   },
 ];
 
-// USER VALIDATORS
+// AUTH VALIDATORS
 // =========================
 exports.loginUserValidator = [
   check('email', 'Please include a valid email').trim().isEmail(),

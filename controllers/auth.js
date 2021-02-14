@@ -25,13 +25,13 @@ exports.loginUser = async (req, res) => {
     // check if email exists
     let user = await User.findOne({ email });
     if (!user) {
-      return res.status(400).json({ errors: [{ msg: 'Invalid credentials.' }] });
+      return res.status(400).json({ errors: [{ msg: 'Invalid credentials' }] });
     }
 
     // check password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ errors: [{ msg: 'Invalid credentials.' }] });
+      return res.status(400).json({ errors: [{ msg: 'Invalid credentials' }] });
     }
 
     // return JWT
@@ -47,8 +47,7 @@ exports.loginUser = async (req, res) => {
       { expiresIn: '1 day' },
       (err, token) => {
         if (err) throw err;
-        console.log(`User '${user.username}' saved`);
-        res.json({ token });
+        res.status(200).json({ token });
       }
     );
   } catch (error) {
@@ -95,10 +94,26 @@ exports.registerUser = async (req, res) => {
       { expiresIn: '1 day' },
       (err, token) => {
         if (err) throw err;
-        console.log(`User '${user.username}' saved`);
-        res.json({ token });
+        res.status(201).json({ token });
       }
     );
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send('Server Error: on register user!');
+  }
+};
+
+// DELETE TEST USER
+// =========================
+exports.deleteTestUser = async (req, res) => {
+  try {
+    let user = await User.findOne({ email: 'registered@test.com' });
+    if (!user) {
+      return res.status(400).json({ errors: [{ msg: 'Test user not found' }] });
+    }
+
+    await User.findOneAndDelete({ email: 'registered@test.com' });
+    res.json({ msg: 'Test user deleted!' });
   } catch (err) {
     console.log(err.message);
     res.status(500).send('Server Error: on register user!');
