@@ -153,10 +153,13 @@ const BookPage = ({ match, isAuth }) => {
             Back
           </Button>
         </Link>
-        {bookDetails !== undefined && isAuth ? (
-          <Tooltip label='Edit this book' aria-label='Tooltip'>
-            <Link to={`/books/edit/${bookDetails._id}`}>
+        {bookDetails !== undefined ? (
+          <Tooltip
+            label={isAuth ? 'Edit book' : 'Login to edit books'}
+            aria-label='Tooltip'>
+            <Link to={isAuth ? `/books/edit/${bookDetails._id}` : '#'}>
               <Button
+                isDisabled={!isAuth}
                 boxShadow='dark-lg'
                 mt={4}
                 mb={5}
