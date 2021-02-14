@@ -16,15 +16,18 @@ import {
   Container,
   CircularProgress as Spinner,
   useColorMode,
+  Tooltip,
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { FaSearch, FaEdit } from 'react-icons/fa';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import Background from '../Components/Background';
 import axiosCall from '../Utils/axios';
 import { delay } from '../Utils/utils';
 
-const AuthorsPage = () => {
+const AuthorsPage = ({ isAuth }) => {
   const { colorMode } = useColorMode();
 
   // states
@@ -51,11 +54,13 @@ const AuthorsPage = () => {
           <Td>{author.firstName}</Td>
           <Td>{author.lastName}</Td>
           <Td isNumeric mr={2} pt={1} pb={1}>
-            <Link to={`/authors/edit/${author._id}`}>
-              <Button variant='outline' p={0}>
-                <FaEdit />
-              </Button>
-            </Link>
+            <Tooltip label={isAuth ? 'Edit author' : 'Login to edit'}>
+              <Link to={isAuth ? `/authors/edit/${author._id}` : '#'}>
+                <Button isDisabled={!isAuth} variant='outline' p={0}>
+                  <FaEdit />
+                </Button>
+              </Link>
+            </Tooltip>
           </Td>
         </Tr>
       ));
@@ -87,7 +92,6 @@ const AuthorsPage = () => {
   return (
     <Background>
       {/* SEARCH BAR SECTION  ======================  */}
-
       <Flex
         backgroundColor={colorMode === 'light' ? 'gray.300' : 'gray.800'}
         borderRadius='md'
@@ -109,14 +113,17 @@ const AuthorsPage = () => {
             _placeholder={{ color: colorMode === 'light' ? 'gray.600' : 'gray.300' }}
           />
         </InputGroup>
-        <Link to='/authors/add'>
-          <Button
-            mx={1}
-            backgroundColor={colorMode === 'light' ? 'teal.400' : 'teal.600'}
-            size='md'>
-            Add Author
-          </Button>
-        </Link>
+        <Tooltip label={isAuth ? 'Edit author' : 'Login to edit'}>
+          <Link to={isAuth ? '/authors/add' : '#'}>
+            <Button
+              isDisabled={!isAuth}
+              mx={1}
+              backgroundColor={colorMode === 'light' ? 'teal.400' : 'teal.600'}
+              size='md'>
+              Add Author
+            </Button>
+          </Link>
+        </Tooltip>
       </Flex>
       {/* TABLE SECTION  ======================  */}
 
@@ -153,4 +160,12 @@ const AuthorsPage = () => {
   );
 };
 
-export default AuthorsPage;
+AuthorsPage.propTypes = {
+  isAuth: PropTypes.bool.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  isAuth: state.auth.isAuth,
+});
+
+export default connect(mapStateToProps, {})(AuthorsPage);
