@@ -7,15 +7,13 @@ module.exports = (req, res, next) => {
     // Get the token from header (if no token, send error)
     const token = req.header('x-auth-token');
     if (!token) {
-      return res.status(401).json({ msg: 'No token, no access' });
+      return res.status(401).json({ errors: [{ msg: 'No token no access' }] });
     }
-    console.log('token extracted');
-    console.log(token);
 
     // Verify token
     jwt.verify(token, config.get('JWT_SECRET'), (error, decoded) => {
       if (error) {
-        res.status(401).json({ msg: 'Invalid Token' });
+        res.status(401).json({ errors: [{ msg: 'Invalid token' }] });
       } else {
         // req.user will contain the user id (req.user.id)
         req.user = decoded.user;
@@ -24,6 +22,6 @@ module.exports = (req, res, next) => {
     });
   } catch (err) {
     console.error('Auth middleware problems...');
-    res.status(500).json({ msg: 'Server error' });
+    res.status(500).json({ errors: [{ msg: 'Server error' }] });
   }
 };

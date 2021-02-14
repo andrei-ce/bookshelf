@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const authorController = require('../controllers/authors');
+const auth = require('../middleware/auth');
+
 const { authorIdValidator, postAuthorValidator } = require('../middleware/validators');
 
 // @route GET /authors
@@ -13,12 +15,13 @@ router.get('/:authorId', authorIdValidator, authorController.getAuthorById);
 
 // @route POST /authors
 // @desc post a new author
-router.post('/', postAuthorValidator, authorController.postAuthor);
+router.post('/', auth, postAuthorValidator, authorController.postAuthor);
 
 // @route PUT /authors
 // @desc edit 1 author by ID
 router.put(
   '/:authorId',
+  auth,
   [authorIdValidator, postAuthorValidator],
   authorController.editAuthorById
 );

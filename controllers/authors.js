@@ -62,7 +62,7 @@ exports.editAuthorById = async (req, res, next) => {
 
     const { firstName, lastName } = req.body;
     if (`${firstName} ${lastName}` === author.fullName) {
-      return res.status(400).json({ errirs: [{ msg: 'No changes detected' }] });
+      return res.status(400).json({ errors: [{ msg: 'No changes detected' }] });
     } else {
       editedAuthor = await Author.findOneAndUpdate(
         { _id: authorId },
