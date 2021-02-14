@@ -130,9 +130,6 @@ const BookForm = ({ mode, ...props }) => {
         </FormControl>
         <FormControl isRequired>
           <FormLabel htmlFor='author'>Author</FormLabel>
-          {/* =============== */}
-          {/* =============== */}
-          {/* =============== */}
           <Select
             placeholder='Select country'
             name='author'
@@ -155,10 +152,6 @@ const BookForm = ({ mode, ...props }) => {
             </ChakraLink>{' '}
             if you cannot find on list
           </FormHelperText>
-
-          {/* =============== */}
-          {/* =============== */}
-          {/* =============== */}
         </FormControl>
         <FormControl isRequired isInvalid={invalidISBN}>
           <FormLabel htmlFor='isbn'>ISBN</FormLabel>

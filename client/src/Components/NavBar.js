@@ -1,15 +1,30 @@
-import { Flex, Stack, useColorMode, IconButton, Box, Image } from '@chakra-ui/react';
+import {
+  Flex,
+  Stack,
+  useColorMode,
+  Button,
+  IconButton,
+  Box,
+  Image,
+} from '@chakra-ui/react';
 import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { FaMoon, FaSun } from 'react-icons/fa';
 import PropTypes from 'prop-types';
 
+import { logout } from '../store/actions/auth';
 import logo from '../Assets/logo-darkmode.png';
 
-const Navbar = ({ location }) => {
+const Navbar = ({ location, isAuth, logout }) => {
   const { colorMode, toggleColorMode } = useColorMode('dark');
   const bgColor = { light: 'gray.300', dark: 'gray.600' };
   const textColor = { light: 'black', dark: 'gray.100' };
 
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    logout();
+  };
+  console.log(isAuth);
   return (
     <Flex
       w='100vw'
@@ -37,7 +52,9 @@ const Navbar = ({ location }) => {
           backgroundColor={
             colorMode === 'light' ? 'transparent.300' : 'transparent.700'
           }>
-          <Image src={logo} alt='Bookshelf Logo' />
+          <Link to='/'>
+            <Image src={logo} alt='Bookshelf Logo' />
+          </Link>
         </Box>
         {/* MENU OPTIONS */}
         <Stack
@@ -46,12 +63,6 @@ const Navbar = ({ location }) => {
           justify='center'
           align='center'
           isInline>
-          <Box
-            position='relative'
-            opacity={location.pathname !== '/' ? 0.4 : 1}
-            textDecoration={location.pathname === '/' ? 'underline' : null}>
-            <Link to='/'>Home</Link>
-          </Box>
           <Box
             position='relative'
             opacity={location.pathname.startsWith('/authors') ? 1 : 0.4}
@@ -68,6 +79,29 @@ const Navbar = ({ location }) => {
             }>
             <Link to='/books'>Books</Link>
           </Box>
+
+          {/* // AUTHENTICATION */}
+          {isAuth ? (
+            <Box
+              position='relative'
+              opacity={location.pathname.startsWith('/auth') ? 0.4 : 1}
+              textDecoration={
+                location.pathname.startsWith('/auth') ? 'underline' : null
+              }
+              onClick={(e) => handleLogout(e)}>
+              <Link to='#'>Logout </Link>
+            </Box>
+          ) : (
+            <Box
+              position='relative'
+              opacity={location.pathname.startsWith('/auth') ? 0.4 : 1}
+              textDecoration={
+                location.pathname.startsWith('/auth') ? 'underline' : null
+              }>
+              <Link to='/login'>Login</Link>
+            </Box>
+          )}
+          {/* // AUTHENTICATION */}
         </Stack>
         {/* LIGHT/DARK THEME */}
         <Flex justify='center' align='center' w={['10vh', '10vh', '12vh', '14vh']}>
@@ -85,6 +119,11 @@ const Navbar = ({ location }) => {
 
 Navbar.propTypes = {
   location: PropTypes.object.isRequired,
+  logout: PropTypes.func.isRequired,
 };
 
-export default withRouter(Navbar);
+const mapStateToProps = (state) => ({
+  isAuth: state.auth.isAuth,
+});
+
+export default connect(mapStateToProps, { logout })(withRouter(Navbar));
