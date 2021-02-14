@@ -37,7 +37,7 @@ const LoginPage = ({ login, isAuth, isLoading, history }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     login(formData);
-    history.goBack();
+    return <Redirect to='/' />;
   };
 
   if (isAuth) {
