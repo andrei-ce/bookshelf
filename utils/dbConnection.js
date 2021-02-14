@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const config = require('config');
 const CONNECTION_STRING = config.get('MONGO_URI');
 
-const connectDB = async () => {
+const connectDb = async () => {
   try {
     await mongoose.connect(CONNECTION_STRING, {
       useNewUrlParser: true,
@@ -17,4 +17,17 @@ const connectDB = async () => {
   }
 };
 
-module.exports = connectDB;
+const disconnectDb = function () {
+  try {
+    return mongoose.disconnect();
+  } catch (err) {
+    console.error(err.message);
+    //Exit process with failure
+    process.exit(1);
+  }
+};
+
+module.exports = {
+  connectDb,
+  disconnectDb,
+};

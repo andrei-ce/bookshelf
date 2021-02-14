@@ -19,24 +19,24 @@ const AuthorEditOrAddPage = ({ location, isAuth }) => {
 
   return (
     <Background>
-      {/* {isAuth ? (
-        <> */}
-      <AuthorForm mode={mode} />
-      <Link to='/authors'>
-        <Button
-          boxShadow='dark-lg'
-          mt={4}
-          mb={5}
-          leftIcon={<FaChevronLeft />}
-          colorScheme='teal'
-          size='md'>
-          Back
-        </Button>
-      </Link>
-      {/* </>
+      {isAuth ? (
+        <>
+          <AuthorForm mode={mode} />
+          <Link to='/authors'>
+            <Button
+              boxShadow='dark-lg'
+              mt={4}
+              mb={5}
+              leftIcon={<FaChevronLeft />}
+              colorScheme='teal'
+              size='md'>
+              Back
+            </Button>
+          </Link>
+        </>
       ) : (
         <FourOhFour />
-      )} */}
+      )}
     </Background>
   );
 };

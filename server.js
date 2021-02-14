@@ -1,7 +1,7 @@
 // imports
 const express = require('express');
 const cors = require('cors');
-const connectDb = require('./utils/dbConnection');
+const { connectDb } = require('./utils/dbConnection');
 const path = require('path');
 
 // init express app
