@@ -52,7 +52,7 @@ exports.postBookValidator = [
     .trim()
     .isLength({ min: 10, max: 300 }),
   check('isbn', 'Please include a valid ISBN-13').trim().isISBN(13),
-  check('author', 'Please include at least one author')
+  check('author', 'Please include a valid author id')
     .trim()
     .isLength({ min: 24, max: 24 }),
   (req, res, next) => {

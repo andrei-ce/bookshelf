@@ -36,7 +36,6 @@ const BookForm = ({ mode, ...props }) => {
   const [invalidISBN, setInvalidISBN] = useState(false);
   const [invalidDesc, setInvalidDesc] = useState(false);
   const [authors, setAuthors] = useState([]);
-  const [authorId, setAuthorId] = useState(undefined);
 
   // Validators:
   const checkISBN = (value) =>
@@ -45,7 +44,7 @@ const BookForm = ({ mode, ...props }) => {
     value > 10 && value < 300 ? setInvalidDesc(false) : setInvalidDesc(true);
 
   // Form Actions:
-  const onChange = (e) => {
+  const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     // check for ISBN & Description validators
     if (e.target.name === 'isbn') {
@@ -73,12 +72,10 @@ const BookForm = ({ mode, ...props }) => {
     // if in edit mode, fetch current book information
     if (mode === 'edit') {
       let bookDetails = await axiosCall.GET(`/books/${bookId}`);
-      // save authorId separated from authorFullName --> this is because selected value in <Select/> won´t persist if not directly referencing state
       const editedBookDetails = {
         ...bookDetails.data,
-        author: `${bookDetails.data.author.firstName} ${bookDetails.data.author.lastName}`,
+        author: bookDetails.data.author._id,
       };
-      setAuthorId(bookDetails.data.author._id);
       setFormData(editedBookDetails);
     }
     // either way, fetch all possible authors
@@ -110,7 +107,7 @@ const BookForm = ({ mode, ...props }) => {
             aria-label='Title'
             borderColor={colorMode === 'light' ? 'gray.500' : 'gray.300'}
             _placeholder={{ color: colorMode === 'light' ? 'gray.600' : 'gray.300' }}
-            onChange={(e) => onChange(e)}
+            onChange={(e) => handleChange(e)}
           />
         </FormControl>
 
@@ -125,7 +122,7 @@ const BookForm = ({ mode, ...props }) => {
             aria-label='Cover image url'
             borderColor={colorMode === 'light' ? 'gray.500' : 'gray.300'}
             _placeholder={{ color: colorMode === 'light' ? 'gray.600' : 'gray.300' }}
-            onChange={(e) => onChange(e)}
+            onChange={(e) => handleChange(e)}
           />
         </FormControl>
         <FormControl isRequired>
@@ -133,12 +130,12 @@ const BookForm = ({ mode, ...props }) => {
           <Select
             placeholder='Select country'
             name='author'
-            value={authorId}
+            value={formData.author}
             placeholder='Select one'
             aria-label='Authors'
             borderColor={colorMode === 'light' ? 'gray.500' : 'gray.300'}
             _placeholder={{ color: colorMode === 'light' ? 'gray.600' : 'gray.300' }}
-            onChange={(e) => onChange(e)}>
+            onChange={(e) => handleChange(e)}>
             {authors.map((author, i) => (
               <option
                 key={i}
@@ -163,7 +160,7 @@ const BookForm = ({ mode, ...props }) => {
             aria-label='isbn 13'
             borderColor={colorMode === 'light' ? 'gray.500' : 'gray.300'}
             _placeholder={{ color: colorMode === 'light' ? 'gray.600' : 'gray.300' }}
-            onChange={(e) => onChange(e)}
+            onChange={(e) => handleChange(e)}
           />
           <FormErrorMessage>ISBN needs 13 digits</FormErrorMessage>
           <FormHelperText>International Standard Book Number</FormHelperText>
@@ -178,7 +175,7 @@ const BookForm = ({ mode, ...props }) => {
             aria-label='description'
             borderColor={colorMode === 'light' ? 'gray.500' : 'gray.300'}
             _placeholder={{ color: colorMode === 'light' ? 'gray.600' : 'gray.300' }}
-            onChange={(e) => onChange(e)}
+            onChange={(e) => handleChange(e)}
             size='md'
           />
           <FormErrorMessage>Keep it between 10 and 300 characters</FormErrorMessage>

@@ -20,7 +20,6 @@ const BookEditOrAddPage = ({ location, isAuth }) => {
   // 2) from'edit button' from BookPage
   const mode = location.pathname.startsWith('/books/add') ? 'add' : 'edit';
 
-  console.log(isAuth);
   return (
     <Background>
       {isAuth ? (

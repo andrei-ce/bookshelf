@@ -45,8 +45,11 @@ export const login = (formData) => async (dispatch) => {
 
     dispatch(loadUser());
   } catch (err) {
-    const errors = err.response.data.errors;
+    console.log(err);
 
+    // to-do: build nicer notification card than window.alert()
+    //
+    // const errors = err.response.data.errors;
     // if (errors) {
     //   errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
     // }
@@ -71,11 +74,7 @@ export const register = (formData) => async (dispatch) => {
 
     dispatch(loadUser());
   } catch (err) {
-    const errors = err.response.data.errors;
-    console.log(errors);
-    // if (errors) {
-    //   errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
-    // }
+    console.log(err);
     dispatch({ type: REGISTER_FAIL });
   }
 };
