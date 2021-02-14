@@ -47,7 +47,7 @@ const RegisterPage = ({ register, isAuth, isLoading, history }) => {
     console.log(formData);
     e.preventDefault();
     register(formData);
-    history.goBack();
+    return <Redirect to='/' />;
   };
 
   if (isAuth) {
