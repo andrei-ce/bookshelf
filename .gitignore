@@ -5,4 +5,4 @@ node_modules/
 
 #Manually inserted
 config/default.json
-# config/*
+config/*

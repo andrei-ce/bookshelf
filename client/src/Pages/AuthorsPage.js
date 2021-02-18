@@ -98,7 +98,7 @@ const AuthorsPage = ({ isAuth }) => {
         p={1}
         mt={1}
         position='absolute'
-        top={['15px', '15px', '35px', '35px']}>
+        top={['15px', '15px', '20px', '20px']}>
         <InputGroup>
           <InputRightElement
             pointerEvents='none'
@@ -132,7 +132,7 @@ const AuthorsPage = ({ isAuth }) => {
           <Spinner isIndeterminate color='teal.400' size='120px' />
         ) : (
           <Table
-            marginTop='15vh'
+            marginTop='12vh'
             marginBottom='10vh'
             borderRadius='md'
             variant='simple'

@@ -50,7 +50,7 @@ const BooksPage = ({ isAuth }) => {
         p={1}
         mt={1}
         position='absolute'
-        top={['15px', '15px', '35px', '35px']}>
+        top={['15px', '15px', '20px', '20px']}>
         <InputGroup>
           <InputRightElement
             pointerEvents='none'
@@ -79,7 +79,7 @@ const BooksPage = ({ isAuth }) => {
       </Flex>
       {/* BOOK COMPONENT GRID SECTION  ======================  */}
 
-      <Container mt={4} maxWidth='1600px' centerContent>
+      <Container my={4} maxWidth='1600px' centerContent>
         {loading ? (
           <Spinner isIndeterminate color='teal.400' size='120px' />
         ) : (

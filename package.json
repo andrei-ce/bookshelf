@@ -1,7 +1,7 @@
 {
-  "name": "holidog",
-  "version": "1.1.0",
-  "description": "Assessment for Holidog",
+  "name": "bookshelf",
+  "version": "1.1.1",
+  "description": "Assessment for interview",
   "main": "server.js",
   "scripts": {
     "start": "node server",
