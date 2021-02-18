@@ -19,7 +19,7 @@ import { login } from '../../store/actions/auth';
 import Background from '../../Components/Background';
 
 // COMPONENT STARTS ============================================
-const LoginPage = ({ login, isAuth, isLoading, history }) => {
+const LoginPage = ({ login, isAuth, isLoading }) => {
   const { colorMode } = useColorMode();
 
   // State

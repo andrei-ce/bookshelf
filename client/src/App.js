@@ -33,12 +33,6 @@ const theme = {
   },
 };
 
-// // Do I need this?
-
-if (localStorage.token) {
-  loadUser();
-}
-
 function App() {
   useEffect(() => {
     if (localStorage.token) {

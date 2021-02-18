@@ -33,9 +33,9 @@ if (app.get('env') !== 'production') {
 }
 
 // define routes
-app.use('/auth', require('./routes/auth'));
-app.use('/authors', require('./routes/authors'));
-app.use('/books', require('./routes/books'));
+app.use('/api/auth', require('./routes/auth'));
+app.use('/api/authors', require('./routes/authors'));
+app.use('/api/books', require('./routes/books'));
 
 //config for heroku deployment
 if (process.env.NODE_ENV === 'production') {

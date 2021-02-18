@@ -16,6 +16,7 @@ import PropTypes from 'prop-types';
 
 const Hero = ({ title, imageUrl, imageAlt, description, landing, isAuth, user }) => {
   const { colorMode } = useColorMode();
+
   return (
     <Box
       margin='5vh 0'
@@ -26,7 +27,7 @@ const Hero = ({ title, imageUrl, imageAlt, description, landing, isAuth, user })
       boxShadow='dark-lg'>
       {landing ? (
         <Text textAlign={['center', 'center', 'left', 'left']} fontSize='4xl'>
-          {isAuth ? `Welcome, ${user.username}` : 'Welcome, young reader'}
+          {user !== null ? `Welcome, ${user.username}` : 'Welcome, young reader'}
         </Text>
       ) : (
         <Text textAlign={['center', 'center', 'left', 'left']} fontSize='4xl'>
@@ -73,6 +74,8 @@ Hero.propTypes = {
   imageAlt: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   landing: PropTypes.bool.isRequired,
+  isAuth: PropTypes.bool.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({

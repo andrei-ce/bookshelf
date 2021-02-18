@@ -19,7 +19,6 @@ export const loadUser = () => async (dispatch) => {
   }
   try {
     const res = await axiosCall.GET('/auth');
-    console.log(res.data);
     dispatch({
       type: USER_LOADED,
       payload: res.data, //this should be the user object {_id, username, email}
@@ -33,11 +32,11 @@ export const loadUser = () => async (dispatch) => {
 // Login user
 // =================================================================================
 export const login = (formData) => async (dispatch) => {
+  console.log('Login!');
   //prepare data to send to API
   const body = formData;
   try {
     const res = await axiosCall.POST('/auth/login', body);
-    console.log(res.data);
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data, //this should be an obj {token: "xxx"}

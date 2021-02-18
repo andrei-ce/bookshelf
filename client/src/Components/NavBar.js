@@ -87,7 +87,7 @@ const Navbar = ({ location, isAuth, logout }) => {
           ) : (
             <Box
               position='relative'
-              opacity={location.pathname.startsWith('/login') ? 0.4 : 1}
+              opacity={location.pathname.startsWith('/login') ? 1 : 0.4}
               textDecoration={
                 location.pathname.startsWith('/login') ? 'underline' : null
               }>
