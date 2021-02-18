@@ -81,21 +81,15 @@ const Navbar = ({ location, isAuth, logout }) => {
 
           {/* // AUTHENTICATION */}
           {isAuth ? (
-            <Box
-              position='relative'
-              opacity={location.pathname.startsWith('/auth') ? 0.4 : 1}
-              textDecoration={
-                location.pathname.startsWith('/auth') ? 'underline' : null
-              }
-              onClick={(e) => handleLogout(e)}>
+            <Box position='relative' onClick={(e) => handleLogout(e)}>
               <Link to='#'>Logout </Link>
             </Box>
           ) : (
             <Box
               position='relative'
-              opacity={location.pathname.startsWith('/auth') ? 0.4 : 1}
+              opacity={location.pathname.startsWith('/login') ? 0.4 : 1}
               textDecoration={
-                location.pathname.startsWith('/auth') ? 'underline' : null
+                location.pathname.startsWith('/login') ? 'underline' : null
               }>
               <Link to='/login'>Login</Link>
             </Box>
