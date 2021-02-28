@@ -1,6 +1,13 @@
 ## Intro
 
 This is a fullstack app that simulates a bookstore MVP <br />
+![Dark mode landing page](https://i.ibb.co/Vqq76H4/Screen-Shot-2021-02-28-at-19-57-59.jpg) <br />
+![Light mode landing page](https://i.ibb.co/pvThsyh/Screen-Shot-2021-02-28-at-19-58-12.jpg) <br />
+![Login page](https://i.ibb.co/gw2fZgR/Screen-Shot-2021-02-28-at-19-58-44.jpg) <br />
+![Books page](https://i.ibb.co/qxqspzM/Screen-Shot-2021-02-28-at-19-58-29.jpg) <br />
+![Edit/add book page](https://i.ibb.co/BCWsLQR/Screen-Shot-2021-02-28-at-19-59-02.jpg) <br />
+![Book detail page](https://i.ibb.co/cw8fk45/Screen-Shot-2021-02-28-at-19-59-43.jpg) <br />
+
 
 ## Deployment
 
