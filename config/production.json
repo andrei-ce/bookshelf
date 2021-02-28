@@ -1,4 +1,0 @@
-{
-  "MONGO_URI": "mongodb+srv://admin_01:qZDFbzBSSWN4XHQt@cluster0.1lbx5.mongodb.net/dev_db?retryWrites=true&w=majority",
-  "JWT_SECRET": "xAjo8-19nCL-l9Kin-pKP4kz"
-}
