@@ -1,13 +1,13 @@
 ## Intro
 
 This is a fullstack app that simulates a bookstore MVP <br />
-<img src="https://i.ibb.co/Vqq76H4/Screen-Shot-2021-02-28-at-19-57-59.jpg" alt="Dark mode landing page" width="300" height="280"/><br />
-![Dark mode landing page](https://i.ibb.co/Vqq76H4/Screen-Shot-2021-02-28-at-19-57-59.jpg) <br />
-![Light mode landing page](https://i.ibb.co/pvThsyh/Screen-Shot-2021-02-28-at-19-58-12.jpg) <br />
-![Login page](https://i.ibb.co/gw2fZgR/Screen-Shot-2021-02-28-at-19-58-44.jpg) <br />
-![Books page](https://i.ibb.co/qxqspzM/Screen-Shot-2021-02-28-at-19-58-29.jpg) <br />
-![Edit/add book page](https://i.ibb.co/BCWsLQR/Screen-Shot-2021-02-28-at-19-59-02.jpg) <br />
-![Book detail page](https://i.ibb.co/cw8fk45/Screen-Shot-2021-02-28-at-19-59-43.jpg) <br />
+<img src="https://i.ibb.co/Vqq76H4/Screen-Shot-2021-02-28-at-19-57-59.jpg" alt="Dark mode landing page" width="320" height="280"/>
+<img src="https://i.ibb.co/pvThsyh/Screen-Shot-2021-02-28-at-19-58-12.jpg" alt="Light mode landing page" width="320" height="280"/>
+<img src="https://i.ibb.co/gw2fZgR/Screen-Shot-2021-02-28-at-19-58-44.jpg" alt="Login page" width="320" height="280"/> <br />
+<img src="https://i.ibb.co/qxqspzM/Screen-Shot-2021-02-28-at-19-58-29.jpg" alt="All books page" width="320" height="280"/> 
+<img src="https://i.ibb.co/cw8fk45/Screen-Shot-2021-02-28-at-19-59-43.jpg" alt="Book detail page" width="320" height="280"/>
+<img src="https://i.ibb.co/BCWsLQR/Screen-Shot-2021-02-28-at-19-59-02.jpg" alt="Edit/add book page" width="320" height="280"/>
+
 
 
 ## Deployment
