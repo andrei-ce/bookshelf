@@ -14,7 +14,7 @@ This is a fullstack app that simulates a bookstore MVP
 ## Deployment
 
 This app has been deployed @
-[https://bookshelf-ac.herokuapp.com/](https://bookshelf-ac.herokuapp.com/) <br />
+[https://bookshelf-ac.herokuapp.com/](https://bookshelf-ac.herokuapp.com/) <br /> (in maintenance)
 
 ## Available Scripts
 
